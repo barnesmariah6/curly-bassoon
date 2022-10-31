@@ -1,0 +1,35 @@
+
+
+library(shiny)
+
+corr<- cor(mtcars$wt, mtcars$mpg)
+corr<- round(corr, digits = 3)
+
+
+ui <- fluidPage(
+  plotOutput("plot", brush = "plot_brush"),
+  tableOutput("data")
+)
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    ggplot(mtcars, aes(wt, mpg)) + geom_point(
+      color="blue",
+      fill="#00C19A",
+      shape=21,
+      alpha=0.5,
+      size=3,
+      stroke = 2) + annotate("text", x=6, y=10, label= corr) + annotate("text", x= 5.75, y= 10, label = "Correlation:") + stat_smooth(method="lm", se=FALSE)
+  },res = 96)
+
+
+  output$data <- renderTable({
+    brushedPoints(mtcars, input$plot_brush)
+  })
+}
+
+
+
+
+
+# Run the application
+shinyApp(ui = ui, server = server)

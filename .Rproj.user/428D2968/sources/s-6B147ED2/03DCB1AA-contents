@@ -1,0 +1,24 @@
+Package: Tranz1
+Type: Package
+Title: FSPH Trans
+Version: 0.1.0
+Author: Mariah Barnes
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: This package is used for easy manipulation of data for transition matrices.It also creates an easy way to input data for forecasting and diagrams.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.1
+Imports: 
+    diagram,
+    forecast,
+    ggplot2,
+    markovchain,
+    methods,
+    stats
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3

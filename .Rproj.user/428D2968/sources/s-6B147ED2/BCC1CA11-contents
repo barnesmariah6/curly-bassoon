@@ -1,0 +1,60 @@
+---
+title: "plotShine"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(shiny)
+library(ggplot2)
+library(grid)
+```
+
+
+
+
+
+
+```{r}
+
+plotcorr <- function(data,x,y, x1, x2){
+  
+corr<- cor(x1, x2)
+corr<- round(corr, digits = 3)
+
+                 
+ui <- fluidPage(
+  plotOutput("plot", brush = "plot_brush"),
+  tableOutput("data")
+)
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    ggplot(data, aes({{x}}, {{y}})) + geom_point(
+      color="blue",
+        fill="#00C19A",
+        shape=21,
+        alpha=0.5,
+        size=3,
+        stroke = 2) + annotate("text", x=6, y=10, label= corr) + annotate("text", x= 5.75, y= 10, label = "Correlation:") + stat_smooth(method="lm", se=FALSE) 
+  },res = 96)
+  
+  output$data <- renderTable({
+    brushedPoints(data, input$plot_brush )
+  })
+  
+}
+shinyApp(ui = ui, server = server)
+
+}
+
+
+
+```
+
+
+```{r}
+plotcorr(mtcars, wt, mpg, mtcars$wt, mtcars$mpg)
+```
+

@@ -1,0 +1,40 @@
+---
+title: "tests"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(Tranz1)
+```
+
+```{r}
+plotcorr(mtcars,wt,mpg, mtcars$wt, mtcars$mpg)
+```
+
+```{r}
+library(readr)
+Dat1 <-read_csv("~/Downloads/trainingDat.csv")
+bob<-transcount(Dat1, 10,20,40,41)
+```
+
+```{r}
+diagMat(bob)
+```
+
+```{r}
+createStates(Dat1,10,20,40,41)
+```
+
+```{r}
+at1<-c(100,400,500)
+easyMeanF(at1,2018,2020)
+```
+
+```{r}
+plotcorr(mtcars,wt,mpg,mtcars$wt,mtcars$mpg)
+```
+

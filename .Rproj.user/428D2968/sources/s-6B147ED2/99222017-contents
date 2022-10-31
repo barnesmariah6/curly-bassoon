@@ -1,0 +1,295 @@
+#' Computes a transition matrix
+#'
+#' @param matrix2 input data set
+#' @param state0  upper limit for state 0
+#' @param state1  lower limit for state 1
+#' @param state2  upper limit for state 2
+#' @param state3  lower limit for state 3
+#'
+#' @return A transition matrix
+#' @export
+#'
+#' @examples
+#' transcount(beaver1,10,20,40,41)
+#'
+transcount <- function(matrix2, state0, state1, state2, state3){
+
+  matrix1<-apply(as.matrix(matrix2), 2, as.numeric)
+
+  rr <-nrow(matrix2)
+  cc<- ncol(matrix2)
+
+  ## step 0 to whatever
+
+  a0<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]<state0+1) && (matrix1[i,j]<state0+1))
+        a0[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+  step0to0 <- sum(colSums(a0))
+
+  a1<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]<state0+1) && (matrix1[i,j]>state0) && (matrix1[i,j]<state1 +1))
+        a1[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+  step0to1 <- sum(colSums(a1))
+
+  a2<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]<state0+1) && (matrix1[i,j]>state1) && (matrix1[i,j]<state2 +1))
+        a2[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+  step0to2 <- sum(colSums(a2))
+
+  a3<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]<state0+1) && (matrix1[i,j]>state2))
+        a3[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+
+  step0to3 <- sum(colSums(a3))
+
+
+
+
+
+  #step 1 to whatever
+
+
+  b0<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]>state0) && (matrix1[i,j-1]<state1+1) && (matrix1[i,j]<state0+1))
+        b0[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+  step1to0 <- sum(colSums(b0))
+
+  b1<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]>state0) && (matrix1[i,j-1]<state1+1) && (matrix1[i,j]>state0) && (matrix1[i,j]<state1+1))
+        b1[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+  step1to1 <- sum(colSums(b1))
+
+  b2<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]>state0) && (matrix1[i,j-1]<state1+1) && (matrix1[i,j]>state1) && (matrix1[i,j]<state2+1))
+        b2[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+  step1to2 <- sum(colSums(b2))
+
+  b3<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]>state0) && (matrix1[i,j-1]<state1+1) && (matrix1[i,j]>state2))
+        b3[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+
+  step1to3 <- sum(colSums(b3))
+
+
+
+
+  #step 2 to whatever
+  c0<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]>state1) && (matrix1[i,j-1]<state2+1) && (matrix1[i,j]<state0+1))
+        c0[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+  step2to0 <- sum(colSums(c0))
+
+  c1<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]>state1) && (matrix1[i,j-1]<state2+1) && (matrix1[i,j]>state0) && (matrix1[i,j]<state1+1))
+        c1[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+  step2to1 <- sum(colSums(c1))
+
+  c2<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]>state1) && (matrix1[i,j-1]<state2+1) && (matrix1[i,j]>state1) && (matrix1[i,j]<state2+1))
+        c2[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+  step2to2 <- sum(colSums(c2))
+
+  c3<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]>state1) && (matrix1[i,j-1]<state2+1) && (matrix1[i,j]>state2))
+        c3[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+
+  step2to3 <- sum(colSums(c3))
+
+
+
+
+
+
+
+  #step 3 to whatever
+  d0<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]>state2)  && (matrix1[i,j]<state0+1))
+        d0[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+  step3to0 <- sum(colSums(d0))
+
+  d1<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]>state2) && (matrix1[i,j]>state0) && (matrix1[i,j]<state1+1))
+        d1[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+  step3to1 <- sum(colSums(d1))
+
+  d2<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]>state2)  && (matrix1[i,j]>state1) && (matrix1[i,j]<state2+1))
+        d2[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+  step3to2 <- sum(colSums(d2))
+
+  d3<-matrix(rep(0,rr*cc),nrow=rr,ncol=cc)
+
+  for(i in 1:nrow(matrix1)){
+    for(j in 2:ncol(matrix1)){
+      if ((matrix1[i,j-1]>state2)  && (matrix1[i,j]>state2))
+        d3[i,j]<-1
+      else
+        NULL
+    }
+  }
+
+
+  step3to3 <- sum(colSums(d3))
+
+  count0 <- step0to0+step0to1 + step0to2 +step0to3
+  count1<- step1to0+step1to1 + step1to2 +step1to3
+  count2<- step2to0+step2to1 + step2to2 +step2to3
+  count3<-step3to0+step3to1 + step3to2 +step3to3
+
+
+
+
+  p00 <-step0to0/count0
+  p01<-step0to1/count0
+  p02<-step0to2/count0
+  p03<-step0to3/count0
+
+  p10<-step1to0/count1
+  p11<-step1to1/count1
+  p12<-step1to2/count1
+  p13<-step1to3/count1
+
+  p20<-step2to0/count2
+  p21<-step2to1/count2
+  p22<-step2to2/count2
+  p23<-step2to3/count2
+
+  p30<-step3to0/count3
+  p31<-step3to1/count3
+  p32<-step3to2/count3
+  p33<-step3to3/count3
+
+
+  transmat<-matrix(c(p00,p01,p02,p03,p10,p11,p12,p13,p20,p21,p22,p23,p30,p31,p32,p33), nrow=4,ncol=4,byrow = TRUE)
+
+
+  statesNames<-c("low","med","high","very high")
+
+  markov_model<-methods::new("markovchain", states=statesNames, transitionMatrix=transmat,name="FSPH")
+
+
+  return(markov_model)
+
+
+
+}
