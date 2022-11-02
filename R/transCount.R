@@ -2,7 +2,7 @@
 #'
 #' @param matrix2 input data set
 #' @param state0  upper limit for state 0
-#' @param state1  lower limit for state 1
+#' @param state1  uper limit for state 1
 #' @param state2  upper limit for state 2
 #' @param state3  lower limit for state 3
 #' @export

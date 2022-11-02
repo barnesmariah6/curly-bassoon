@@ -1,4 +1,8 @@
 {
     "source_window_id": "",
-    "Source": "Source"
+    "Source": "Source",
+    "cursorPosition": "130,375",
+    "scrollLine": "118",
+    "ignored_words": "Mariah,Tranz,shinyWidgets,markovchain,createStates,diagMat,easyMean,plotcorr,transCount,diagmat,easymean\n",
+    "last_setup_crc32": "6B147ED21dca1026"
 }

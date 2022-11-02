@@ -1,5 +1,5 @@
 ---
-title: "my-vignette"
+title: "Tranz1-vignette"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{my-vignette}
@@ -14,6 +14,130 @@ knitr::opts_chunk$set(
 )
 ```
 
+---
+Tranz1
+Mariah Barnes
+10/31/2022
+---
+
+# Introduction
+The Tranz1 package is a used to analyze time driven data through transitions and visuals. The functions included in this package are createStates, diagMat, easyMean, plotcorr, and transCount. 
+
+I.   createStates
+The createStates() function aids user to count the number of states in their data set. For example if you want to know how many cells equate to less than a hundred you can use this function.The states are considered a classification system that allows a Markov transition matrix to calculate probabilities of transitioning from each state.  
+
+II.  easyMean
+The easymean() function is exactly  what it is called. It is an easy way to calculate a percentile forecasting using the mean. All you need is chronological data, the start year, and the end year.
+
+III. plotcorr
+The plotcorr() function is a shiny application that utilizes ggplot2 scatter plot with a smoother. After imputing your data set, x, and y axis points it will output an interactive scatter plot that allows you to select points and return values of the selected points in all variables in the data set. In the right hand corner of the plot there is also the correlation of the two variables inputted.
+
+IV.  transCount
+The transCount() function function takes a numerical data set and outputs a transition matrix that calculated the probability of moving from each state.
+
+V.   diagmat
+The diagmat() function takes in the a variable assigned from the trans count function and sets up a visual transition matrix using arrows and circles.
+
+# Background/Motivation
+This package was created to help with enrollment numbers and predicting future numbers. The markov transition matrix can be used to predict probabilities of enrollment numbers spiking and the forecast function can be used to ballpark student numbers.
+
+# Packages
+These are the packages imported within the package.
+diagram
+forecast
+ggplot2
+markovchain
+methods
+stats
+grid
+shiny
+shinyWidgets
+
+# Installing Package From github
+
+1. Download tar.gz from https://github.com/barnesmariah6/curly-bassoon
+
+2.
+```{r, eval=FALSE}
+install.packages("your working directory/ enter tar.gz file, repos=NULL , type = "source")
+```
+
+
 ```{r setup}
 library(Tranz1)
 ```
+
+# Examples
+
+## Forecasting 
+```{r}
+myDat<-c (100,345,500,450)
+easyMeanF(myDat,2020,2024)
+```
+The mean method presents us with a single number (i.e., point forecast). It is used to forecast an output of  highest value with 80% confidence and highest values with 95% confidence. 
+
+
+##  Load the data
+
+```{r, message=FALSE}
+library(readr)
+trainingDat <- read_csv("~/Downloads/trainingDat.csv")
+head(trainingDat, 10)
+```
+Column Meaning
+Y is the year
+E is end
+B is beginning
+So Y1B means the begining of year 1.
+
+
+## Analysis
+```{r}
+tranzMat <- transcount(trainingDat,10,20,40,41)
+tranzMat
+```
+This is the outputted transition matrix using the the states inputted as
+state0 - any cell 0-10
+state1 - any cell 11-20
+state2 - any cell 21-40
+state3 - anything equal or above 41
+
+
+## Visualizing Results
+
+### State Transition Diagram
+```{r}
+diagMat(transMat)
+```
+
+
+
+### Using Scatter Plot
+This data set will be used for an example for the shiny scatter plot. It is best to use data sets with variables with potential relationships.
+```{r}
+head(mtcars, 10)
+```
+
+```{r}
+plotcorr(mtcar, wt, mpg, mtcars$wt, mtcars$mpg)
+```
+As we can see the variable wt and mpg have a negative correlation. You can select the points withing scatter plot to observe other variables.
+
+
+
+
+
+# What's Next
+There's so much more that can be done with this package. The plotcorr function can be updated for easier an easier user input. Instead of having the user input the variables twice I can find a way so that the function accepts the parameters without the $ operator. I could also add optional output for the transition states to accepted any number of absorbing default states.
+
+
+
+# Session Information
+
+```{r}
+options(width = 100)
+devtools::session_info()
+```
+
+
+
