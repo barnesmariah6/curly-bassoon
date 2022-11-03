@@ -59,7 +59,10 @@ shinyWidgets
 
 2.
 ```{r, eval=FALSE}
-install.packages("your working directory/ enter tar.gz file, repos=NULL , type = "source")
+library(remotes)
+install_git("https://github.com/barnesmariah6/curly-bassoon")
+#use either or
+#install.packages("your working directory/ enter tar.gz file", repos=NULL , type = "source")
 ```
 
 
@@ -107,7 +110,7 @@ state3 - anything equal or above 41
 
 ### State Transition Diagram
 ```{r}
-diagMat(transMat)
+diagMat(tranzMat)
 ```
 
 
@@ -140,4 +143,5 @@ devtools::session_info()
 ```
 
 
+`
 
