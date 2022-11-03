@@ -3,8 +3,9 @@ title: "Tranz1-vignette"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{my-vignette}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+runtime: shiny
 ---
 
 ```{r, include = FALSE}
@@ -69,7 +70,7 @@ install_git("https://github.com/barnesmariah6/curly-bassoon")
 Download tar.gz from https://github.com/barnesmariah6/curly-bassoon
 ```{r, eval =FALSE}
 
-#install.packages("your working directory/ enter tar.gz file", repos=NULL , type = "source")
+install.packages("your working directory/ enter tar.gz file", repos=NULL , type = "source")
 ```
 
 
@@ -129,7 +130,7 @@ head(mtcars, 10)
 ```
 
 ```{r}
-plotcorr(mtcar, wt, mpg, mtcars$wt, mtcars$mpg)
+plotcorr(mtcars, wt, mpg, mtcars$wt, mtcars$mpg)
 ```
 As we can see the variable wt and mpg have a negative correlation. You can select the points withing scatter plot to observe other variables.
 
