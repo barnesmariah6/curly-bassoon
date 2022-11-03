@@ -54,14 +54,21 @@ shiny
 shinyWidgets
 
 # Installing Package From github
+ 
 
-1. Download tar.gz from https://github.com/barnesmariah6/curly-bassoon
+Use either method to download TRANZ1 package
 
-2.
+
 ```{r, eval=FALSE}
 library(remotes)
 install_git("https://github.com/barnesmariah6/curly-bassoon")
-#use either or
+
+```
+
+
+Download tar.gz from https://github.com/barnesmariah6/curly-bassoon
+```{r, eval =FALSE}
+
 #install.packages("your working directory/ enter tar.gz file", repos=NULL , type = "source")
 ```
 
